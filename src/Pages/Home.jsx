@@ -24,12 +24,13 @@ function Home() {
     if (posts.length > 0 && authStatus) {
         return (
             <div className="relative overflow-hidden py-10 ">
+                <Container>
                 <div className="relative ">
                     <div className="m-auto  lg:ml-10 lg:mr-20 max-w-xl lg:max-w-full">
 
                         <div className="my-18 -mx-4  flex flex-wrap px-4 ">
-                            <div className=" w-full lg:justify-start px-16 lg:mb-0 lg:w-3/4">
-                                <div className='my-4  md:ml-6 md:mt-0 hover:transform hover:scale-110 transition-transform duration-700 '>
+                            <div className=" w-full lg:justify-start lg:px-16 lg:mb-0 lg:w-3/4">
+                                <div className=' my-4  md:ml-6 md:mt-0 hover:transform hover:scale-105 transition-transform duration-700 '>
                                     {posts.map((post, index) => (
 
 
@@ -41,11 +42,11 @@ function Home() {
 
 
                             </div>
-                            <div className="w-full sm:flex-row lg:ml-  lg:w-1/4">
+                            <div className="w-full sm:flex-row  lg:w-1/4">
                              
                                 <div className="group mb-2 ">
                                     <div
-                                        className=" w-75 rounded-lg hover:transform hover:scale-110 transition-transform duration-700 ">
+                                        className=" w-75 rounded-lg hover:transform hover:scale-105 transition-transform duration-700 ">
                                         <div>
                                             {posts.map((post, index) => (
 
@@ -60,7 +61,7 @@ function Home() {
                                 </div>
                                 <div className="group  mb-2 ">
                                     <div
-                                        className="lg:ml-auto w-75 rounded-lg hover:transform hover:scale-110 transition-transform duration-700 ">
+                                        className="lg:ml-auto w-75 rounded-lg hover:transform hover:scale-105 transition-transform duration-700 ">
                                         {posts.map((post, index) => (
 
 
@@ -91,7 +92,7 @@ function Home() {
                             <Link to='/all-posts'>
                             <button
                                 type="button"
-                                className="rounded-md border mr-4 border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:transform hover:scale-125 transition-transform duration-700"
+                                className="rounded-md border mr-4 border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:transform hover:scale-110 transition-transform duration-700"
                             >
                                 View All Posts
                             </button>
@@ -99,7 +100,7 @@ function Home() {
                             <Link to='/add-post'>
                             <button
                                 type="button"
-                                className="rounded-md border ml-4 border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:transform hover:scale-125 transition-transform duration-700"
+                                className="rounded-md border ml-4 border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:transform hover:scale-110 transition-transform duration-700"
                             >
                                 Add New Posts
                             </button>
@@ -108,6 +109,7 @@ function Home() {
                         
                     </div>
                 </div>
+                </Container>
             </div>
 
 

@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input, Select, RTE } from '../index'
+import { Button, Input, Select, RTE, Loading } from '../index'
 import appwriteService from '../../Appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -13,16 +13,20 @@ export default function PostForm({ post }) {
             slug: post?.slug || '',
             content: post?.content || '',
             status: post?.status || "active",
+            featuredImage: post?.featuredImage || "",
+
         },
     })
-    
 
 
+    const blogCategory = ['Technology', 'Engineering', 'Social Media and Marketing', 'Health and Wellness', 'Lifestyle', 'Food and Cooking', 'Finance', 'Geming', 'Entertainment', 'Science and Nature', 'Other']
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     const userData = useSelector((state) => state.auth.userData)
 
     const submit = async (data) => {
+        setLoading(true)
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
@@ -50,7 +54,12 @@ export default function PostForm({ post }) {
                     navigate(`/post/${dbPost.$id}`);
                 }
             }
+            else {
+                appwriteService.deleteFile(data.image[0])
+            }
+            setLoading(false)
         }
+
     };
 
     const slugTransform = useCallback((value) => {
@@ -59,11 +68,27 @@ export default function PostForm({ post }) {
                 .trim()
                 .toLowerCase()
                 .replace(/[^a-zA-Z\d\s]+/g, "-")
-                .replace(/\s/g, "-");
-
+                .replace(/\s/g, "-")
+                .replace(/^[^a-zA-Z0-9]*|[^a-zA-Z0-9]*$/g, '')
+                .replace(/^[^a-z\d]*|[^a-z\d]*$/gi, '')
         return "";
     }, []);
 
+
+    // Edite Post
+    React.useEffect(() => {
+        if (post && post.title) {
+            // Set the default value for the title field
+            setValue('title', post.title);
+        }
+        if (post && post.content) {
+            // Set the default value for the title field
+            setValue('content', post.content);
+        }
+
+
+
+    }, [post]);
     React.useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
@@ -74,12 +99,13 @@ export default function PostForm({ post }) {
         return () => subscription.unsubscribe();
     }, [watch, slugTransform, setValue]);
 
-    return (
-        
+    return post ? (
+
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
             <div className="w-2/3 px-2">
                 <Input
                     label="Title :"
+
                     placeholder="Title"
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed"
                     {...register("title", { required: true })}
@@ -103,25 +129,36 @@ export default function PostForm({ post }) {
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
-                
+
                 <Select
-                    options={["active", "inactive"]}
-                    label="Status"
+                    options={blogCategory}
+                    label="Blog Category"
                     className="mb-4"
-                    {...register("status", { required: true })}
+                    {...register("Blog Category", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
-                    {post ? "Update" : "Submit"}
+                <Button
+                    type="submit"
+                    bgColor={post ? "bg-green-500" : undefined}
+                    className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline "
+                >
+                    {loading ? (
+
+                        <div>Updating.... </div>
+
+
+
+                    ) : 'Update'}
                 </Button>
-                {post &&(
+                {loading && <Loading type="bubbles" color='gray' height='50%' width='20%' />}
+                {post && (
                     <div className="w-full mt-8 text-center">
                         <h1 className='font-bold'>Blog Preview</h1>
                         <div>
-                            <h4 className='font-semibold' >{post.title}</h4>  
+                            <h4 className='font-semibold' >{post.title}</h4>
                             <p className='lg:text-justify lg:overflow-hidden'>{parse(post.content)}
-                            </p>                          
+                            </p>
                         </div>
-                        
+
                         <img
                             src={appwriteService.getFilePreview(post.featuredImage)}
                             alt={post.title}
@@ -131,6 +168,60 @@ export default function PostForm({ post }) {
                 )}
             </div>
         </form>
-    );
+    ) :
+        (
+
+            <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+                <div className="w-2/3 px-2">
+                    <Input
+                        label="Title :"
+                        placeholder="Title"
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed"
+                        {...register("title", { required: true })}
+                    />
+                    <Input
+                        label="Slug :"
+                        placeholder="Slug"
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed "
+                        {...register("slug", { required: true })}
+                        onInput={(e) => {
+                            setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                        }}
+                    />
+                    <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+                </div>
+                <div className="w-1/3 px-2">
+                    <Input
+                        label="Featured Image :"
+                        type="file"
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed "
+                        accept="image/png, image/jpg, image/jpeg, image/gif"
+                        {...register("image", { required: !post })}
+                    />
+
+                    <Select
+                        options={blogCategory}
+                        label="Blog Category"
+                        className="mb-4"
+                        {...register("Blog Category", { required: true })}
+                    />
+                    <Button
+                        type="submit"
+                        bgColor={post ? "bg-green-500" : undefined}
+                        className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline "
+                    >
+                        {loading ? (
+
+                            <div>Submiting.... </div>
+
+                        ) : 'Submit'}
+                    </Button>
+                    {loading && <Loading type="bubbles" color='gray' height='50%' width='20%' />}
+
+                    
+
+                </div>
+            </form>
+        )
 }
 

@@ -6,9 +6,19 @@ export default {
   ],
   theme: {
     extend: {
-      
+      lineClamp : {
+        10 : "10",
+        12 : "12",
+      }
+
     },
   },
-  plugins: [],
+  variats:{
+    extend : {
+      lineClamp : ["hover"]
+    }
+  },
+  plugins: [require('@tailwindcss/line-clamp')
+  ],
 }
 

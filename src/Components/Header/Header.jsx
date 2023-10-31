@@ -20,7 +20,6 @@ function Header() {
     setIsMenuOpen(false);
   }
 
-
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
   const navItems = [
@@ -85,7 +84,7 @@ function Header() {
                 {authStatus && (
                   <div
 
-                  className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:cursor-pointer"
+                    className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:cursor-pointer"
                   >
                     <LogoutBtn />
                   </div>
@@ -136,7 +135,7 @@ function Header() {
                           ) : null
                         )}
 
-                        
+
                       </ul>
 
                     </div>
@@ -159,6 +158,7 @@ function Header() {
           </div>
         </header>
       </Container>
+
     </div>
 
   )

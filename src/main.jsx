@@ -36,6 +36,7 @@ const router = createBrowserRouter(
           <AllPosts />
         </AuthLayout>
       )} />
+     
       <Route path='add-post' element={(
         <AuthLayout authentication={true}>
           <AddPost />

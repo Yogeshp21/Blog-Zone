@@ -22,7 +22,7 @@ export class Service {
             return await this.databases.createDocument(
                 Conf.appwriteDataBaseId,
                 Conf.appwriteCollectionId,
-                slug,
+                slug.slice(0,15),
                 {
                     title,
                     content,
@@ -36,7 +36,7 @@ export class Service {
             )
         } catch (error) {
             console.log("Appwrite serive :: createPost :: error", error);
-            alert("Appwrite serive :: createPost :: error", error);
+        
         }
     }
 

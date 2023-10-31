@@ -13,6 +13,8 @@ import Button from './Button'
 import Input from './Input'
 import Select from "./Select"
 
+import Loading from "./Loading"
+
 export {
     Header,
     Footer,
@@ -28,5 +30,8 @@ export {
     Button,
     Input,
     Select,
+  
+    Loading,
+ 
    
 }

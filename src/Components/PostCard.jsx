@@ -5,14 +5,8 @@ import parse from 'html-react-parser'
 
 
 function PostCard({ $id, title, featuredImage, content }) {
-  const truncatedContent = truncateText(content,35);
-  function truncateText(text, limit) {
-    const words = text.split(' ');
-    if (words.length > limit) {
-      return words.slice(0, limit).join(' ') + '...';
-    }
-    return text;
-  }
+
+
   return (
     <div>
       <Link to={`/post/${$id}`} className="group w-full">
@@ -22,11 +16,11 @@ function PostCard({ $id, title, featuredImage, content }) {
             src={appwriteService.getFilePreview(featuredImage)} alt={title}
           />
         </div>
-        <div>
-          <h4 className="mb-5 text-center text-2xl font-bold font-sans text-gray-900">
-            {title}
+        <div >
+          <h4 className="capitalize mb-5 text-center text-2xl font-bold font-sans text-gray-900">
+            <span className='line-clamp-1'>{title}</span>
             <br />
-            <div className="mt-2 text-center  text-lg text-gray-500 browser-css">{parse(truncatedContent)}</div>
+            <span className="mt-2 text-center  text-lg text-gray-500 browser-css line-clamp-4 ">{parse(content)}</span>
           </h4>
 
 

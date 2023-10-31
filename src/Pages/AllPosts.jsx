@@ -1,5 +1,5 @@
-import React, {  useState } from 'react'
-import { Container, PostCard} from '../Components'
+import React, { useState } from 'react'
+import { Container, PostCard } from '../Components'
 import appwriteService from '../Appwrite/config'
 
 function AllPosts() {
@@ -15,16 +15,16 @@ function AllPosts() {
     return (
         <div className='w-full py-8'>
             <Container>
-                <div className='flex lg:grid-row-4 md:grid-rows-2 flex-wrap'>
+                <div className='flex lg:grid-row-4 md:grid-rows-2 flex-wrap '>
                     {posts.map((post) => (
-                        <div key={post.$id} className='p-3 w-1/4 hover:transform hover:scale-110 transition-transform duration-700 '>
+                        <div key={post.$id} className=' p-3 w-1/4 hover:transform hover:scale-105 transition-transform duration-700 '>
                             <PostCard {...post} />
                         </div>
                     ))}
                 </div>
-                </Container>
+            </Container>
         </div>
-      )
-    }
+    )
+}
 
 export default AllPosts
