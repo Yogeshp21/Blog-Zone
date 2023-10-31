@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useCallback, useState } from 'react'
+=======
+import React, { useCallback,useState } from 'react'
+>>>>>>> 00a2175847cb862284f7c5c97ddc25592b653854
 import { useForm } from 'react-hook-form'
 import { Button, Input, Select, RTE, Loading } from '../index'
 import appwriteService from '../../Appwrite/config'
@@ -21,12 +25,20 @@ export default function PostForm({ post }) {
 
     const blogCategory = ['Technology', 'Engineering', 'Social Media and Marketing', 'Health and Wellness', 'Lifestyle', 'Food and Cooking', 'Finance', 'Geming', 'Entertainment', 'Science and Nature', 'Other']
     const navigate = useNavigate();
+<<<<<<< HEAD
     const [loading, setLoading] = useState(false)
+=======
+const [loading,setLoading] = useState(false)
+>>>>>>> 00a2175847cb862284f7c5c97ddc25592b653854
 
     const userData = useSelector((state) => state.auth.userData)
 
     const submit = async (data) => {
+<<<<<<< HEAD
         setLoading(true)
+=======
+setLoading(true)
+>>>>>>> 00a2175847cb862284f7c5c97ddc25592b653854
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
@@ -59,7 +71,11 @@ export default function PostForm({ post }) {
             }
             setLoading(false)
         }
+<<<<<<< HEAD
 
+=======
+setLoading(false)
+>>>>>>> 00a2175847cb862284f7c5c97ddc25592b653854
     };
 
     const slugTransform = useCallback((value) => {
@@ -136,6 +152,7 @@ export default function PostForm({ post }) {
                     className="mb-4"
                     {...register("Blog Category", { required: true })}
                 />
+<<<<<<< HEAD
                 <Button
                     type="submit"
                     bgColor={post ? "bg-green-500" : undefined}
@@ -148,6 +165,11 @@ export default function PostForm({ post }) {
 
 
                     ) : 'Update'}
+=======
+                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+{loading ? ("Posting Blog please wait...") : ( {post ? "Update" : "Submit"})}
+                   
+>>>>>>> 00a2175847cb862284f7c5c97ddc25592b653854
                 </Button>
                 {loading && <Loading type="bubbles" color='gray' height='50%' width='20%' />}
                 {post && (
