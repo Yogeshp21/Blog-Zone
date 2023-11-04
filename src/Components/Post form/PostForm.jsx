@@ -94,7 +94,7 @@ export default function PostForm({ post }) {
 
 
 
-    }, [post,post.content,post.title]);
+    }, [post]);
     React.useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
