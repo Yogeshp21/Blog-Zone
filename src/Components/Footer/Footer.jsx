@@ -77,7 +77,7 @@ function Footer() {
                 </Link>
               </div>
               <div className="w-auto p-1.5">
-                <Link to="https://drive.google.com/file/d/1t2EQxhZ90GfH9yRKiy6ZYFcqOHX3xPQM/view?usp=sharing"
+                <Link to="https://drive.google.com/file/d/1arPbYKzAzUiWXLv-JBpqGx9PxxI2KDRz/view?usp=sharing"
                 target="_blank"
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
