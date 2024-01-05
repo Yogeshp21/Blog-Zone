@@ -3,7 +3,7 @@
 
 ## Demo URL
 
-[https://react-tailwindcss-portfolio.netlify.app](https://blog-zones.netlify.app/)
+[https://blog-zones.netlify.app](https://blog-zones.netlify.app/)
 
 
 ![Blog zone ](https://github.com/Yogeshp21/Blog-Zone/blob/main/src/Images/Project%20Snap.png?raw=true)
